@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import django_heroku
 from pathlib import Path
 import dj_database_url
 from django.contrib.messages import constants as messages
@@ -83,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'efeclient',
         'USER': 'sesan',
-        'PASSWORD': 'Superslayerboy1',
+        'PASSWORD': os.environ.get('PW'),
         'HOST': 'localhost',
         'PORT': '',
     }
