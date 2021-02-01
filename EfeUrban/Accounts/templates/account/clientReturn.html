@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efe Urban</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+</head>
+
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        background-color: rgb(235, 235, 235);
+    }
+
+    form{
+        width: 100%;
+        text-align: center;
+        margin: 20px 0 20px 0;
+    }
+
+    #id_searchVal{
+        width: 50%;
+        border: 2px solid blue;
+        margin: auto;
+
+    }
+
+
+    table, th, td{
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+    -moz-appearance: textfield;
+    }
+
+    .navBar{
+        width: 100%;
+        margin: 0;
+        background-color:rgb(61, 61, 171);    
+        }
+    
+    .navBar div h2{
+        color: white;
+    }
+
+    a:hover, a h4:hover{
+        color: black;
+        text-decoration: none;
+    }
+    button div:hover{
+        color: black;
+    }
+</style>
+
+<body>
+    <div class="navBar row d-flex justify-content-center">
+        <div class="d-flex col-lg-9 col-md-8 col-sm-7">
+            <h2 class="align-self-center">Efe Urban</h2>
+        </div>
+       <div class="d-flex flex-row-reverse">
+            <button type="button" class="btn btn-primary align-self-center" style="background-color: transparent; border: 0px;" data-toggle="modal" data-target="#exampleModal">
+                <div style="display: block; height: 30%; margin-top: 12px;">
+                    <i style=" margin-top:10px;" class="bi bi-plus-square"></i>
+                    <p style="margin-top:2px;">New Loan</p>
+                </div>
+            </button>
+            <a href="" class="align-self-center mr-3" style="color: white;"><h4>Hi Sesan,</h4></a>
+        </div>
+    </div>
+    <form action="" method="get">
+    	{% csrf_token %}
+        {{ form.searchVal }}
+        <button name="debtor" type="submit">Submit</button>
+    </form>
+    <h3 class="ml-5 mt-3">Select Client</h3>
+    <table style="width:90%; margin: auto;">
+        <tr>
+            <th>Full name</th>
+            <th>Account ID</th>
+            <th>Savings</th>
+        </tr>
+        {% if single %}
+        
+        <tr style="background-color: {{cleared.color}};">
+            <td><a href="{% url 'Accounts:returneeLoan' cleared.idField %}">{{ cleared.name }}</a></td>
+            <td>{{ cleared.idField }}</td>
+            <td>{{ cleared.savings }}</td>
+        </tr>
+        
+        {% else %}
+        {% for i in cleared %}
+        <tr style="background-color: {{i.client.color}};">
+            <td><a href="{% url 'Accounts:returneeLoan' i.client.idField %}">{{ i.client.name }}</a></td>
+            <td>{{ i.client.idField }}</td>
+            <td>{{ i.client.savings }}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        
+    </table>
+</body>
+</html>
