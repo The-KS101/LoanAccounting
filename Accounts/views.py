@@ -40,6 +40,7 @@ def login_view(request):
             else:
                 messages.error(request, "Invalid Username or Password")
         else:
+            print(form.errors)
             messages.error(request, "Something went wrong")
     
     form = AuthenticationForm()
