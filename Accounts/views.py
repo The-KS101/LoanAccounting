@@ -49,7 +49,8 @@ def login_view(request):
         'form': form,
     }
     return render(request, 'account/login.html', context)
-    
+
+#Search View Logic
 @login_required(login_url='/login')
 def search(request, clientNo):
     client = get_object_or_404(Client, idField=clientNo)
@@ -72,6 +73,7 @@ def search(request, clientNo):
     }
     return render(request, 'account/search.html', context)
 
+#Client Savings Withdrawal Logic
 @login_required(login_url='/login')
 def withdrawSavings(request, accountNum):
     clientWithdraw = Client.objects.get(idField=accountNum)
@@ -92,6 +94,7 @@ def withdrawSavings(request, accountNum):
     }
     return render(request, 'account/saveWithdraw.html', context)
 
+#Sorted Client View
 @login_required(login_url='/login')
 def sortIndex(request, sortParam, order):
     if order == 'asc':
@@ -111,6 +114,7 @@ def sortIndex(request, sortParam, order):
     }
     return render(request, 'account/sortIndex.html', context)
 
+#Client Debt View
 @login_required(login_url='/login')
 def debtView(request, accountNum):
     client = Client.objects.get(idField = accountNum)
@@ -122,6 +126,7 @@ def debtView(request, accountNum):
     }
     return render(request, 'account/debtDetails.html', context)
 
+#Clients CLeared Debt View
 @login_required(login_url='/login')
 def clearedDebtView(request, accountNum):
     client = Client.objects.get(idField = accountNum)
@@ -132,6 +137,7 @@ def clearedDebtView(request, accountNum):
         'name': request.user.username,
     }
     return render(request, 'account/clearedDetails.html', context)
+
 
 @login_required(login_url='/login')
 def clearedDebtDetail(request, accountNum, debtId):
@@ -147,6 +153,7 @@ def clearedDebtDetail(request, accountNum, debtId):
     }
     return render(request, 'account/clearedDetailsExp.html', context)
 
+#UpdateClient View
 @login_required(login_url='/login')
 def updateClientField(request, accountNum):
     client = Client.objects.get(idField = accountNum)
@@ -167,10 +174,7 @@ def updateClientField(request, accountNum):
         
         return render(request, 'account/updatePay.html', context)
 
-@login_required(login_url='/login')
-def giveLoan(request):
-    return render(request, 'account/loanOpt.html')
-
+#Create Loan View
 @login_required(login_url='/login')
 def loanCreate(request, clientStatus):
     if clientStatus == 'new':
@@ -216,6 +220,7 @@ def loanCreate(request, clientStatus):
         }
         return render(request, 'account/clientReturn.html', context)
 
+#Returnee PayView
 @login_required(login_url='/login')
 def returneePayView(request, accountNum):
     client = Client.objects.get(idField=accountNum)
@@ -229,7 +234,6 @@ def returneePayView(request, accountNum):
             client.color = 'rgb(58, 58, 172)'
             client.save()
             return redirect('/')
-        
     else:
         form = ReturneeForm()
     context = {
@@ -239,6 +243,7 @@ def returneePayView(request, accountNum):
     }
     return render(request, 'account/addReturn.html', context)
 
+#Book keeping Balance Sheet
 @login_required(login_url='/login')
 def balancesheet(request):
     cash = BalanceSheet.objects.last()
@@ -252,6 +257,7 @@ def balancesheet(request):
     }
     return render(request, 'account/efeinfo.html', context)
 
+#Logout 
 def logout_view(request):
     logout(request)
     return redirect('Accounts:login')
