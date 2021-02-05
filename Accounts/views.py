@@ -37,7 +37,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                redirect(request.POST.get('next'))
+                redirect('/')
             else:
                 messages.error(request, "Invalid Username or Password")
         else:
