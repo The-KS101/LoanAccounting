@@ -9,7 +9,6 @@ urlpatterns = [
     path('clients/<int:accountNum>/clearedDebt/', views.clearedDebtView, name="clearView"),
     path('clients/<int:accountNum>/clearedDebt/expandView-<int:debtId>', views.clearedDebtDetail, name="clearViewDet"),
     path('clients/<int:accountNum>/paymentsMade', views.updateClientField, name="makePay"),
-    path('clients/loanCreation', views.giveLoan, name="giveLoan"),
     path('clients/<str:clientStatus>/createNew', views.loanCreate, name="createLoan"),
     path('clients/loanReturnee/<int:accountNum>', views.returneePayView, name="returneeLoan"),
     path('clients/SavingsWithdrawal/<int:accountNum>', views.withdrawSavings, name="withdraw"),
