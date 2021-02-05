@@ -66,7 +66,8 @@ def search(request, clientNo):
     context = {
         'client':client,
         'form':form,
-        'cleared': cleared
+        'cleared': cleared,
+        'name': request.user.username,
     }
     return render(request, 'account/search.html', context)
 
@@ -85,6 +86,7 @@ def withdrawSavings(request, accountNum):
     context = {
         'form': form,
         'client': clientWithdraw,
+        'name': request.user.username,
     }
     return render(request, 'account/saveWithdraw.html', context)
 
@@ -102,6 +104,7 @@ def sortIndex(request, sortParam, order):
         'money':money,
         'order':order,
         'cleared':ClearedClis,
+        'name': request.user.username,
     }
     return render(request, 'account/sortIndex.html', context)
 
@@ -111,6 +114,7 @@ def debtView(request, accountNum):
     context = {
         'client': client,
         'money': money,
+        'name': request.user.username,
     }
     return render(request, 'account/debtDetails.html', context)
 
@@ -121,6 +125,7 @@ def clearedDebtView(request, accountNum):
     context = {
         'client': client,
         'money': money,
+        'name': request.user.username,
     }
     return render(request, 'account/clearedDetails.html', context)
 
@@ -133,6 +138,7 @@ def clearedDebtDetail(request, accountNum, debtId):
         'client': client,
         'money': money,
         'count': count,
+        'name': request.user.username,
     }
     return render(request, 'account/clearedDetailsExp.html', context)
 
@@ -150,6 +156,7 @@ def updateClientField(request, accountNum):
         context = {
             'form': form,
             'client': client,
+            'name': request.user.username,
         }
         
         return render(request, 'account/updatePay.html', context)
@@ -179,6 +186,7 @@ def loanCreate(request, clientStatus):
             form = ClientForm()
             context = {
                 'form': form,
+                'name': request.user.username,
             }
             return render(request, 'account/addClient.html', context)
     else:
@@ -196,6 +204,7 @@ def loanCreate(request, clientStatus):
             'cleared': ClearedClis,
             'form': form,
             'single': single,
+            'name': request.user.username,
         }
         return render(request, 'account/clientReturn.html', context)
 
@@ -217,6 +226,7 @@ def returneePayView(request, accountNum):
     context = {
         'client': client,
         'form': form,
+        'name': request.user.username,
     }
     return render(request, 'account/addReturn.html', context)
 
