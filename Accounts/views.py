@@ -29,7 +29,7 @@ def index(request):
     return render(request, 'account/index.html', context)
 
 def login_view(request):
-    if request.method == "POST":
+    if request.method == "GET":
         form = AuthenticationForm(data=request.GET)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -41,7 +41,6 @@ def login_view(request):
             else:
                 messages.error(request, "Invalid Username or Password")
         else:
-            print(form.errors)
             messages.error(request, "Something went wrong")
     
     form = AuthenticationForm()
