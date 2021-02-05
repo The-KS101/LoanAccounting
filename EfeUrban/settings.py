@@ -1,18 +1,16 @@
-import django_heroku
 from pathlib import Path
 import os
-import dj_database_url
 from django.contrib.messages import constants as messages
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'SECRET_KEY'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = True
 
-ALLOWED_HOSTS = ['efeurban.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
@@ -62,16 +60,15 @@ WSGI_APPLICATION = 'EfeUrban.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'efeclient',
-        'USER': 'sesan',
-        'PASSWORD': os.environ.get('PW'),
+        'NAME': 'your-db-name',
+        'USER': 'your-db-User',
+        'PASSWORD': 'your-db-password',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
 
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+
 
 
 #Password Validation
@@ -161,4 +158,3 @@ LOGGING = {
 }
 ################################
 
-django_heroku.settings(locals())
