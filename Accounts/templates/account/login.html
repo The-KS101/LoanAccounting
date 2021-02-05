@@ -78,7 +78,7 @@
     {% endif %}
 
     <div class="d-flex formCont" >
-        <form action="" method="POST" >
+        <form action="" method="post" >
             {% csrf_token %}
             {{ form.as_p }}
             <button name="debtor" type="submit">Submit</button>
