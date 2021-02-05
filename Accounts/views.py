@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from datetime import datetime
 
+#Index Page, Login required
 @login_required(login_url='/login')
 def index(request):
     Clients = Client.objects.all().filter(cleared=False)
@@ -49,7 +50,7 @@ def login_view(request):
     }
     return render(request, 'account/login.html', context)
     
-
+@login_required(login_url='/login')
 def search(request, clientNo):
     client = get_object_or_404(Client, idField=clientNo)
     cleared = False
@@ -71,6 +72,7 @@ def search(request, clientNo):
     }
     return render(request, 'account/search.html', context)
 
+@login_required(login_url='/login')
 def withdrawSavings(request, accountNum):
     clientWithdraw = Client.objects.get(idField=accountNum)
     if request.method == 'POST':
@@ -90,6 +92,7 @@ def withdrawSavings(request, accountNum):
     }
     return render(request, 'account/saveWithdraw.html', context)
 
+@login_required(login_url='/login')
 def sortIndex(request, sortParam, order):
     if order == 'asc':
         order = 'dsc'
@@ -108,6 +111,7 @@ def sortIndex(request, sortParam, order):
     }
     return render(request, 'account/sortIndex.html', context)
 
+@login_required(login_url='/login')
 def debtView(request, accountNum):
     client = Client.objects.get(idField = accountNum)
     money = AmountAdded.objects.filter(client__idField=accountNum)
@@ -118,7 +122,7 @@ def debtView(request, accountNum):
     }
     return render(request, 'account/debtDetails.html', context)
 
-
+@login_required(login_url='/login')
 def clearedDebtView(request, accountNum):
     client = Client.objects.get(idField = accountNum)
     money = ClearedClients.objects.filter(client__idField=accountNum)
@@ -129,6 +133,7 @@ def clearedDebtView(request, accountNum):
     }
     return render(request, 'account/clearedDetails.html', context)
 
+@login_required(login_url='/login')
 def clearedDebtDetail(request, accountNum, debtId):
     client = Client.objects.get(idField = accountNum)
     money = ClearedClients.objects.get(client__idField=accountNum, pk = debtId)
@@ -142,6 +147,7 @@ def clearedDebtDetail(request, accountNum, debtId):
     }
     return render(request, 'account/clearedDetailsExp.html', context)
 
+@login_required(login_url='/login')
 def updateClientField(request, accountNum):
     client = Client.objects.get(idField = accountNum)
     if request.method == 'POST':
@@ -161,9 +167,11 @@ def updateClientField(request, accountNum):
         
         return render(request, 'account/updatePay.html', context)
 
+@login_required(login_url='/login')
 def giveLoan(request):
     return render(request, 'account/loanOpt.html')
 
+@login_required(login_url='/login')
 def loanCreate(request, clientStatus):
     if clientStatus == 'new':
         if request.method == 'POST':
@@ -208,6 +216,7 @@ def loanCreate(request, clientStatus):
         }
         return render(request, 'account/clientReturn.html', context)
 
+@login_required(login_url='/login')
 def returneePayView(request, accountNum):
     client = Client.objects.get(idField=accountNum)
     if request.method == 'POST':
@@ -230,6 +239,7 @@ def returneePayView(request, accountNum):
     }
     return render(request, 'account/addReturn.html', context)
 
+@login_required(login_url='/login')
 def balancesheet(request):
     cash = BalanceSheet.objects.last()
     color='green'
