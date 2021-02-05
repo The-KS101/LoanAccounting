@@ -29,15 +29,15 @@ def index(request):
     return render(request, 'account/index.html', context)
 
 def login_view(request):
-    if request.method == "GET":
-        form = AuthenticationForm(data=request.GET)
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                redirect(request.GET.get('next'))
+                redirect(request.POST.get('next'))
             else:
                 messages.error(request, "Invalid Username or Password")
         else:
